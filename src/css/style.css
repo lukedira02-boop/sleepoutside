@@ -171,11 +171,11 @@ button {
 
 .category-card {
   display: flex;
-  min-height: 150px;
+  min-height: 190px;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.25rem;
   padding: 1rem;
   border: 1px solid var(--light-grey);
   color: var(--dark-grey);
@@ -191,9 +191,20 @@ button {
 }
 
 .category-card img {
-  width: 74px;
-  height: 74px;
+  width: 64px;
+  height: 88px;
   object-fit: contain;
+  object-position: left center;
+}
+
+.category-card span {
+  color: #52620b;
+}
+
+.category-card p {
+  margin: 0;
+  font-size: 0.9em;
+  font-weight: normal;
 }
 
 .product-list {
