@@ -23,6 +23,7 @@ export default defineConfig({
         main: resolve(__dirname, 'src/index.html'),
         cart: resolve(__dirname, 'src/cart/index.html'),
         checkout: resolve(__dirname, 'src/checkout/index.html'),
+        countdown: resolve(__dirname, 'src/countdown.html'),
         product: resolve(__dirname, 'src/product_pages/index.html'),
         productListing: resolve(__dirname, 'src/product_listing/index.html'),
       },
