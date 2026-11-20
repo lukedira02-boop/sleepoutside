@@ -12,6 +12,7 @@ export default defineConfig({
     allowedHosts: [
       'sleepoutside-1-kpgy.onrender.com',
       'sleepoutside-u879.onrender.com',
+      'sleepoutside-dc0i.onrender.com',
     ],
   },
 

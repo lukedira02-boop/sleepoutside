@@ -10,10 +10,19 @@ const categoryLabels = {
 };
 
 const category = getParam('category');
+const searchTerm = getParam('search')?.trim();
 const title = qs('#product-list-title');
 const listElement = qs('.product-list');
+const searchInput = qs('#product-search-input');
 
-if (!categoryLabels[category]) {
+if (searchInput && searchTerm) searchInput.value = searchTerm;
+
+if (searchTerm) {
+  title.textContent = `Search results for "${searchTerm}"`;
+  listElement.innerHTML = '<li class="loading-message">Searching products...</li>';
+  const productList = new ProductList(null, new ProductData(), listElement);
+  productList.initSearch(searchTerm);
+} else if (!categoryLabels[category]) {
   title.textContent = 'Product category not found';
   listElement.innerHTML =
     '<li class="error-message">Choose a category from the home page.</li>';
