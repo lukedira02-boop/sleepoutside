@@ -29,12 +29,35 @@ export default class ProductList {
   async init() {
     try {
       const list = await this.dataSource.getData(this.category);
-      this.renderList(list);
+      this.renderListOrEmpty(list);
     } catch (error) {
       console.error('Could not load products:', error);
       this.listElement.innerHTML =
         '<li class="error-message">Products could not be loaded. Please try again.</li>';
     }
+  }
+
+  async initSearch(query) {
+    try {
+      const list = await this.dataSource.searchProducts(query);
+      this.renderListOrEmpty(list, `No products matched "${query}".`);
+    } catch (error) {
+      console.error('Could not search products:', error);
+      this.listElement.innerHTML =
+        '<li class="error-message">Search is unavailable. Please try again.</li>';
+    }
+  }
+
+  renderListOrEmpty(list, emptyMessage = 'No products are available in this category yet.') {
+    if (!list.length) {
+      const message = document.createElement('li');
+      message.className = 'empty-results';
+      message.textContent = emptyMessage;
+      this.listElement.replaceChildren(message);
+      return;
+    }
+
+    this.renderList(list);
   }
 
   renderList(list) {

@@ -24,6 +24,8 @@ function renderProductDetails(product) {
       ${product.DescriptionHtmlSimple}
     </p>
 
+    <p id="product-status" class="product-status" role="status" aria-live="polite"></p>
+
     <div class="product-detail__add">
       <button id="addToCart" data-id="${product.Id}">
         Add to Cart
@@ -41,8 +43,20 @@ function addProductToCart(product) {
 }
 
 async function addToCartHandler(e) {
-  const product = await dataSource.findProductById(e.target.dataset.id);
-  addProductToCart(product);
+  const button = e.currentTarget;
+  const status = qs('#product-status');
+  button.disabled = true;
+
+  try {
+    const product = await dataSource.findProductById(button.dataset.id);
+    addProductToCart(product);
+    status.textContent = `${product.Name} was added to your cart.`;
+  } catch (error) {
+    console.error('Could not add product to cart:', error);
+    status.textContent = 'This product could not be added. Please try again.';
+  } finally {
+    button.disabled = false;
+  }
 }
 
 async function init() {
