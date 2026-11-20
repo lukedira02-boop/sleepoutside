@@ -62,9 +62,34 @@
         </div>
       </div>
 
-      <section class="products">
-        <h2>Top Products</h2>
-        <ul class="product-list"></ul>
+      <section class="categories" aria-labelledby="categories-title">
+        <h2 id="categories-title">Shop by category</h2>
+        <ul class="category-grid">
+          <li>
+            <a class="category-card" href="%BASE_URL%product_listing/index.html?category=tents">
+              <img src="%BASE_URL%images/noun_Tent_2517.svg" alt="" />
+              <span>Tents</span>
+            </a>
+          </li>
+          <li>
+            <a class="category-card" href="%BASE_URL%product_listing/index.html?category=sleeping-bags">
+              <img src="%BASE_URL%images/sleeping-bag-icon.svg" alt="" />
+              <span>Sleeping Bags</span>
+            </a>
+          </li>
+          <li>
+            <a class="category-card" href="%BASE_URL%product_listing/index.html?category=backpacks">
+              <img src="%BASE_URL%images/noun_Backpack_65884.svg" alt="" />
+              <span>Backpacks</span>
+            </a>
+          </li>
+          <li>
+            <a class="category-card" href="%BASE_URL%product_listing/index.html?category=hammocks">
+              <img src="%BASE_URL%images/hammock-icon.svg" alt="" />
+              <span>Hammocks</span>
+            </a>
+          </li>
+        </ul>
       </section>
     </main>
 
@@ -73,6 +98,5 @@
       Worldwide Online
     </footer>
 
-    <script type="module" src="/js/main.js"></script>
   </body>
 </html>

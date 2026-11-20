@@ -2,7 +2,7 @@
 import ProductData from './ProductData.mjs';
 import { qs, setLocalStorage } from './utils.mjs';
 
-const dataSource = new ProductData('tents');
+const dataSource = new ProductData();
 
 function renderProductDetails(product) {
   document.title = `Sleep Outside | ${product.Name}`;
@@ -13,7 +13,7 @@ function renderProductDetails(product) {
 
     <img
       class="divider"
-      src="${product.Image}"
+      src="${product.Images.PrimaryLarge}"
       alt="${product.Name}"
     />
 

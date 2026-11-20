@@ -8,7 +8,7 @@ function productCardTemplate(product) {
     <li class="product-card">
       <a href="${productUrl}">
         <img
-          src="${product.Image}"
+          src="${product.Images.PrimaryMedium}"
           alt="${product.Name}"
         />
         <h3 class="card__brand">${product.Brand.Name}</h3>
@@ -27,15 +27,23 @@ export default class ProductList {
   }
 
   async init() {
-    const list = await this.dataSource.getData();
-    this.renderList(list);
+    try {
+      const list = await this.dataSource.getData(this.category);
+      this.renderList(list);
+    } catch (error) {
+      console.error('Could not load products:', error);
+      this.listElement.innerHTML =
+        '<li class="error-message">Products could not be loaded. Please try again.</li>';
+    }
   }
 
   renderList(list) {
     renderListWithTemplate(
       productCardTemplate,
       this.listElement,
-      list
+      list,
+      'afterbegin',
+      true
     );
   }
 }
