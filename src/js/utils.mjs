@@ -11,7 +11,26 @@ export function getParam(name) {
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
+  const value = localStorage.getItem(key);
+  if (value === null) return null;
+
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    console.error(`Could not read local storage item "${key}".`, error);
+    return null;
+  }
+}
+
+export function getCartItems() {
+  const storedCart = getLocalStorage('so-cart');
+  if (Array.isArray(storedCart)) return storedCart;
+  if (storedCart && typeof storedCart === 'object' && storedCart.Id) {
+    const migratedCart = [storedCart];
+    setLocalStorage('so-cart', migratedCart);
+    return migratedCart;
+  }
+  return [];
 }
 // save data to local storage
 export function setLocalStorage(key, data) {
