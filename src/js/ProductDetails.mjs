@@ -1,6 +1,6 @@
 
 import ProductData from './ProductData.mjs';
-import { qs, setLocalStorage } from './utils.mjs';
+import { getCartItems, qs, setLocalStorage } from './utils.mjs';
 
 const dataSource = new ProductData();
 
@@ -37,7 +37,7 @@ function renderProductDetails(product) {
 }
 
 function addProductToCart(product) {
-  const currentCart = JSON.parse(localStorage.getItem('so-cart')) || [];
+  const currentCart = getCartItems();
   currentCart.push(product);
   setLocalStorage('so-cart', currentCart);
 }
