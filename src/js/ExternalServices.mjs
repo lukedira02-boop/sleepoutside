@@ -4,14 +4,14 @@ const configuredBaseURL =
 const baseURL = `${configuredBaseURL.replace(/\/+$/, '')}/`;
 
 async function convertToJson(response) {
+  const jsonResponse = await response.json();
   if (!response.ok) {
-    throw new Error(`Request failed with status ${response.status}`);
+    throw { name: 'servicesError', message: jsonResponse };
   }
-
-  return response.json();
+  return jsonResponse;
 }
 
-export default class ProductData {
+export default class ExternalServices {
   async getData(category) {
     const response = await fetch(
       `${baseURL}products/search/${encodeURIComponent(category)}`
@@ -47,5 +47,14 @@ export default class ProductData {
     const response = await fetch(`${baseURL}product/${encodeURIComponent(id)}`);
     const data = await convertToJson(response);
     return data.Result;
+  }
+
+  async checkout(order) {
+    const response = await fetch(`${baseURL}checkout`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(order),
+    });
+    return convertToJson(response);
   }
 }
