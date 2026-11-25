@@ -64,7 +64,11 @@ export function alertMessage(message, scroll = true) {
   const main = document.querySelector('main');
   if (!main) return null;
 
-  main.querySelectorAll('.alert').forEach((currentAlert) => currentAlert.remove());
+  const existingAlerts = [...main.querySelectorAll('.alert')];
+  const existingAlert = existingAlerts.find(
+    (currentAlert) => currentAlert.querySelector('.alert__message')?.textContent === message
+  );
+  if (existingAlert) return existingAlert;
 
   const alert = document.createElement('div');
   alert.className = 'alert';
@@ -82,7 +86,8 @@ export function alertMessage(message, scroll = true) {
   closeButton.addEventListener('click', () => alert.remove());
 
   alert.append(text, closeButton);
-  main.prepend(alert);
+  if (existingAlerts.length) existingAlerts[existingAlerts.length - 1].after(alert);
+  else main.prepend(alert);
   if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
   return alert;
 }
