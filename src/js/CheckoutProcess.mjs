@@ -18,15 +18,37 @@ function packageItems(items) {
   }));
 }
 
-function getErrorMessage(error) {
+function getErrorMessages(error) {
   const details = error?.name === 'servicesError' ? error.message : error?.message;
-  if (typeof details === 'string') return details;
-  if (details && typeof details === 'object') {
-    if (typeof details.message === 'string') return details.message;
-    if (typeof details.error === 'string') return details.error;
-    return JSON.stringify(details);
+
+  function collectMessages(value) {
+    if (typeof value === 'string') return [value];
+    if (Array.isArray(value)) return value.flatMap(collectMessages);
+    if (!value || typeof value !== 'object') return [];
+
+    const nestedErrors = value.errors ?? value.message ?? value.error;
+    if (nestedErrors !== undefined) return collectMessages(nestedErrors);
+    return Object.values(value).flatMap(collectMessages);
   }
-  return 'Please check your information and try again.';
+
+  const messages = collectMessages(details);
+  return messages.length ? messages : ['Please check your information and try again.'];
+}
+
+function getValidationMessages(form) {
+  const messages = [];
+  if (!form.elements.expiration.validity.valid) messages.push('Invalid expiration date');
+  if (!form.elements.cardNumber.validity.valid) messages.push('Invalid Card Number');
+  if (!form.elements.zip.validity.valid) messages.push('Invalid ZIP code');
+
+  const otherRequiredFields = [...form.elements].some(
+    (field) =>
+      field.required &&
+      !field.value.trim() &&
+      !['expiration', 'cardNumber', 'zip'].includes(field.name)
+  );
+  if (otherRequiredFields) messages.push('Please complete all required fields.');
+  return messages;
 }
 
 export default class CheckoutProcess {
@@ -63,9 +85,12 @@ export default class CheckoutProcess {
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      document.querySelectorAll('main .alert').forEach((alert) => alert.remove());
       this.validateExpiration(expirationInput);
       if (!form.checkValidity()) {
         form.reportValidity();
+        const messages = getValidationMessages(form);
+        messages.forEach((message, index) => alertMessage(message, index === 0));
         return;
       }
       if (!this.list.length) {
@@ -148,7 +173,9 @@ export default class CheckoutProcess {
       window.location.href = `${import.meta.env.BASE_URL}checkout/success.html`;
     } catch (error) {
       console.error('Checkout failed:', error);
-      alertMessage(`We couldn't place your order. ${getErrorMessage(error)}`);
+      getErrorMessages(error).forEach((message, index) =>
+        alertMessage(message, index === 0)
+      );
     }
   }
 }

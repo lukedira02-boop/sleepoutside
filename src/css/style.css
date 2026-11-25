@@ -673,11 +673,11 @@ footer {
 
 .alert {
   position: relative;
-  margin: 0.75rem 0 1.25rem;
+  margin: 0 0 0.3rem;
   padding: 0.85rem 3rem 0.85rem 1rem;
   border-left: 4px solid var(--tertiary-color);
-  background: #fff4e5;
-  color: #492900;
+  background: var(--primary-color);
+  color: var(--dark-grey);
 }
 
 .alert__message {
