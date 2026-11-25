@@ -526,6 +526,24 @@ button:disabled {
   grid-column: 3;
 }
 
+.cart-card__remove {
+  grid-column: 2 / 4;
+  justify-self: end;
+  margin: 0.25rem 0 0.75rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 4px;
+  color: var(--secondary-color);
+  background: white;
+  cursor: pointer;
+}
+
+.cart-card__remove:hover,
+.cart-card__remove:focus-visible {
+  color: white;
+  background: var(--secondary-color);
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
