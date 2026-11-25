@@ -59,3 +59,30 @@ export function renderListWithTemplate(
   const htmlStrings = list.map(templateFn);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
+
+export function alertMessage(message, scroll = true) {
+  const main = document.querySelector('main');
+  if (!main) return null;
+
+  main.querySelectorAll('.alert').forEach((currentAlert) => currentAlert.remove());
+
+  const alert = document.createElement('div');
+  alert.className = 'alert';
+  alert.setAttribute('role', 'status');
+
+  const text = document.createElement('p');
+  text.className = 'alert__message';
+  text.textContent = message;
+
+  const closeButton = document.createElement('button');
+  closeButton.className = 'alert__dismiss';
+  closeButton.type = 'button';
+  closeButton.setAttribute('aria-label', 'Dismiss message');
+  closeButton.textContent = '×';
+  closeButton.addEventListener('click', () => alert.remove());
+
+  alert.append(text, closeButton);
+  main.prepend(alert);
+  if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+  return alert;
+}
