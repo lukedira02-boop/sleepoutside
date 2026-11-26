@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Create a SleepOutside customer account." />
+    <title>Sleep Outside | Create account</title>
+    <link rel="stylesheet" href="%BASE_URL%css/style.css" />
+    <script type="module" src="%BASE_URL%js/signup.js"></script>
+  </head>
+  <body>
+    <header class="site-header divider">
+      <div class="logo">
+        <img src="%BASE_URL%images/noun_Tent_2517.svg" alt="" />
+        <a href="%BASE_URL%index.html">Sleep<span class="highlight">Outside</span></a>
+      </div>
+      <a class="checkout-cart-link" href="%BASE_URL%cart/index.html">View cart</a>
+    </header>
+
+    <main class="divider signup-page">
+      <div class="signup-intro">
+        <p class="signup-eyebrow">A little closer to the outdoors</p>
+        <h1>Create your account</h1>
+        <p>Save your details for a smoother checkout on your next adventure.</p>
+      </div>
+
+      <form id="signup-form" class="signup-form" novalidate>
+        <fieldset class="signup-section signup-contact">
+          <legend>Contact details</legend>
+          <div class="signup-fields">
+            <label for="name">Full name</label>
+            <input id="name" name="name" autocomplete="name" minlength="2" required />
+
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+        </fieldset>
+
+        <fieldset class="signup-section signup-delivery">
+          <legend>Delivery address</legend>
+          <p class="signup-section-copy">Where should we send your gear?</p>
+          <div class="signup-fields">
+            <label for="street">Street address</label>
+            <input id="street" name="street" autocomplete="street-address" required />
+
+            <label for="city">City</label>
+            <input id="city" name="city" autocomplete="address-level2" required />
+
+            <label for="state">State / region</label>
+            <input id="state" name="state" autocomplete="address-level1" required />
+
+            <label for="zip">Postal code</label>
+            <input id="zip" name="zip" autocomplete="postal-code" required />
+
+          </div>
+        </fieldset>
+
+        <fieldset class="signup-section signup-security">
+          <legend>Account security</legend>
+          <p class="signup-section-copy">Choose a password you have not used elsewhere.</p>
+          <div class="signup-fields">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="new-password" minlength="8" aria-describedby="password-help" required />
+            <span class="signup-help" id="password-help">Use at least 8 characters.</span>
+
+            <label for="password-confirm">Confirm password</label>
+            <input id="password-confirm" name="passwordConfirm" type="password" autocomplete="new-password" minlength="8" required />
+          </div>
+        </fieldset>
+
+        <fieldset class="signup-avatar">
+          <legend>Profile photo <span>(optional)</span></legend>
+          <div class="avatar-control">
+            <img id="avatar-preview" class="avatar-preview" alt="Avatar preview" hidden />
+            <div class="avatar-placeholder" id="avatar-placeholder" aria-hidden="true">+</div>
+            <div>
+              <label for="avatar">Choose an image</label>
+              <input id="avatar" name="avatar" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="avatar-help" />
+              <p id="avatar-help" class="signup-help">JPG, PNG, or WebP, up to 2 MB.</p>
+              <button id="avatar-remove" class="avatar-remove" type="button" hidden>Remove photo</button>
+            </div>
+          </div>
+        </fieldset>
+
+        <label class="signup-consent">
+          <input name="consent" type="checkbox" required />
+          <span>I agree to the account terms and confirm these details are mine.</span>
+        </label>
+
+        <p id="signup-status" class="signup-status" role="status" aria-live="polite"></p>
+        <button id="signup-submit" class="signup-submit" type="submit">Create account</button>
+        <p class="signup-login"><a href="%BASE_URL%index.html">Return to shopping</a></p>
+      </form>
+    </main>
+
+    <footer class="site-footer">
+      <span>&copy; 2025 SleepOutside | WDD 330 | BYU-Idaho</span>
+      <a href="%BASE_URL%countdown.html">Try the countdown timer activity</a>
+    </footer>
+  </body>
+</html>

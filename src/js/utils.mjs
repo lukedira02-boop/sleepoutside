@@ -82,12 +82,24 @@ export function alertMessage(message, scroll = true) {
   closeButton.className = 'alert__dismiss';
   closeButton.type = 'button';
   closeButton.setAttribute('aria-label', 'Dismiss message');
-  closeButton.textContent = '×';
-  closeButton.addEventListener('click', () => alert.remove());
+  closeButton.textContent = 'X';
+  closeButton.addEventListener('click', () => {
+    const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) {
+      alert.remove();
+      return;
+    }
+
+    alert.classList.add('alert--closing');
+    alert.addEventListener('animationend', () => alert.remove(), { once: true });
+  });
 
   alert.append(text, closeButton);
   if (existingAlerts.length) existingAlerts[existingAlerts.length - 1].after(alert);
   else main.prepend(alert);
-  if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+  const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+  }
   return alert;
 }
