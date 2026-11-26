@@ -6,7 +6,7 @@ const baseURL = `${configuredBaseURL.replace(/\/+$/, '')}/`;
 async function convertToJson(response) {
   const jsonResponse = await response.json();
   if (!response.ok) {
-    throw { name: 'servicesError', message: jsonResponse };
+    throw { name: 'servicesError', message: jsonResponse, status: response.status };
   }
   return jsonResponse;
 }
@@ -54,6 +54,15 @@ export default class ExternalServices {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(order),
+    });
+    return convertToJson(response);
+  }
+
+  async createUser(user) {
+    const response = await fetch(`${baseURL}users`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user),
     });
     return convertToJson(response);
   }

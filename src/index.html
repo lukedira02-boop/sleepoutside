@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Home</title>
     <link rel="stylesheet" href="/css/style.css" />
+    <script type="module" src="/js/newsletter.js"></script>
   </head>
 
   <body>
@@ -47,6 +48,7 @@
           </svg>
         </a>
       </div>
+      <a class="account-link" href="%BASE_URL%signup/index.html">Create account</a>
     </header>
 
     <main class="divider">
@@ -101,6 +103,34 @@
           </li>
         </ul>
       </section>
+
+      <section class="newsletter" aria-labelledby="newsletter-title">
+        <div class="newsletter__copy">
+          <h2 id="newsletter-title">Get outside with us</h2>
+          <p>Sign up for our newsletter for outdoor tips, new gear, and special offers.</p>
+        </div>
+        <form class="newsletter-form" id="newsletter-form">
+          <label for="newsletter-email">Email address</label>
+          <div class="newsletter-form__row">
+            <input
+              id="newsletter-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="you@example.com"
+              required
+            />
+            <button type="submit">Sign me up</button>
+          </div>
+          <label class="newsletter-form__consent">
+            <input name="consent" type="checkbox" required />
+            I agree to receive email updates and can unsubscribe at any time.
+          </label>
+          <p class="newsletter-form__message" id="newsletter-message" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <p class="home-account-entry">New to SleepOutside? <a href="%BASE_URL%signup/index.html">Create an account</a> to make checkout easier.</p>
     </main>
 
         <footer class="site-footer">
